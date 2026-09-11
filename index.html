@@ -312,6 +312,12 @@
   .menu-list-2col li{break-inside:avoid;}
   @media (max-width:640px){ .menu-list-2col{columns:1;} }
   .menu-group-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  button.menu-group-head{width:100%;background:none;border:none;padding:0;font:inherit;color:inherit;text-align:left;cursor:pointer;}
+  .menu-group-chevron{flex:none;width:20px;height:20px;color:var(--text-muted);margin-left:auto;transition:transform .3s ease;}
+  .menu-group-collapsible.is-open .menu-group-chevron{transform:rotate(180deg);}
+  .menu-group-content{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s cubic-bezier(.2,.7,.3,1);}
+  .menu-group-content-inner{overflow:hidden;min-height:0;}
+  .menu-group-collapsible.is-open .menu-group-content{grid-template-rows:1fr;}
   .menu-group-head svg{flex:none;width:22px;height:22px;color:var(--accent);}
   .menu-group-head h3{font-size:1.2rem;}
   .menu-badge{
@@ -771,47 +777,57 @@
           </li>
         </ul>
       </div>
-      <div class="menu-group menu-group-wide reveal">
-        <div class="menu-group-head">
+      <div class="menu-group menu-group-wide menu-group-collapsible reveal">
+        <button type="button" class="menu-group-head" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1.3"><ellipse cx="12" cy="7" rx="2.4" ry="4.6"/><ellipse cx="12" cy="17" rx="2.4" ry="4.6"/><ellipse cx="7" cy="12" rx="4.6" ry="2.4"/><ellipse cx="17" cy="12" rx="4.6" ry="2.4"/></g><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>
           <h3>프리미엄 브라질리언</h3>
+          <svg class="menu-group-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="menu-group-content">
+          <div class="menu-group-content-inner">
+            <ul class="menu-list menu-list-2col">
+              <li>
+                <span class="menu-name">프리미엄 저통증 아로마 브라질리언 [고급]<small>항문 포함</small></span>
+                <span class="menu-price">85,000원</span>
+              </li>
+              <li>
+                <span class="menu-name">항문만 왁싱</span>
+                <span class="menu-price">30,000원</span>
+              </li>
+              <li>
+                <span class="menu-name">프리미엄 브라질리언 [고급]<small>항문 포함 + 배렛나루</small></span>
+                <span class="menu-price">90,000원</span>
+              </li>
+              <li>
+                <span class="menu-name">프리미엄 브라질리언 [고급]<small>항문 포함 + 엉덩이</small></span>
+                <span class="menu-price">90,000원</span>
+              </li>
+            </ul>
+          </div>
         </div>
-        <ul class="menu-list menu-list-2col">
-          <li>
-            <span class="menu-name">프리미엄 저통증 아로마 브라질리언 [고급]<small>항문 포함</small></span>
-            <span class="menu-price">85,000원</span>
-          </li>
-          <li>
-            <span class="menu-name">항문만 왁싱</span>
-            <span class="menu-price">30,000원</span>
-          </li>
-          <li>
-            <span class="menu-name">프리미엄 브라질리언 [고급]<small>항문 포함 + 배렛나루</small></span>
-            <span class="menu-price">90,000원</span>
-          </li>
-          <li>
-            <span class="menu-name">프리미엄 브라질리언 [고급]<small>항문 포함 + 엉덩이</small></span>
-            <span class="menu-price">90,000원</span>
-          </li>
-        </ul>
       </div>
-      <div class="menu-group menu-group-wide reveal">
-        <div class="menu-group-head">
+      <div class="menu-group menu-group-wide menu-group-collapsible reveal">
+        <button type="button" class="menu-group-head" aria-expanded="false">
           <svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:17px;height:22px;"><circle cx="12" cy="4" r="3" stroke="currentColor" stroke-width="1.3"/><rect x="7" y="8" width="10" height="12" rx="4" stroke="currentColor" stroke-width="1.3"/><rect x="3.3" y="9" width="3" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><rect x="17.7" y="9" width="3" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><rect x="8" y="19" width="3.2" height="11" rx="1.6" stroke="currentColor" stroke-width="1.3"/><rect x="12.8" y="19" width="3.2" height="11" rx="1.6" stroke="currentColor" stroke-width="1.3"/></svg>
           <h3>바디 왁싱</h3>
+          <svg class="menu-group-chevron" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div class="menu-group-content">
+          <div class="menu-group-content-inner">
+            <ul class="menu-list menu-list-2col">
+              <li><span class="menu-name">다리 [전체]</span><span class="menu-price">100,000원</span></li>
+              <li><span class="menu-name">배 [전체]</span><span class="menu-price">40,000원</span></li>
+              <li><span class="menu-name">가슴 [전체]</span><span class="menu-price">40,000원</span></li>
+              <li><span class="menu-name">팔 [전체]</span><span class="menu-price">80,000원</span></li>
+              <li><span class="menu-name">다리 [부분]</span><span class="menu-price">70,000원</span></li>
+              <li><span class="menu-name">겨드랑이</span><span class="menu-price">30,000원</span></li>
+              <li><span class="menu-name">팔 [부분]</span><span class="menu-price">60,000원</span></li>
+              <li><span class="menu-name">배렛나루</span><span class="menu-price">30,000원</span></li>
+              <li><span class="menu-name">유륜</span><span class="menu-price">10,000원</span></li>
+              <li><span class="menu-name">엉덩이 [전체]</span><span class="menu-price">40,000원</span></li>
+            </ul>
+          </div>
         </div>
-        <ul class="menu-list menu-list-2col">
-          <li><span class="menu-name">다리 [전체]</span><span class="menu-price">100,000원</span></li>
-          <li><span class="menu-name">배 [전체]</span><span class="menu-price">40,000원</span></li>
-          <li><span class="menu-name">가슴 [전체]</span><span class="menu-price">40,000원</span></li>
-          <li><span class="menu-name">팔 [전체]</span><span class="menu-price">80,000원</span></li>
-          <li><span class="menu-name">다리 [부분]</span><span class="menu-price">70,000원</span></li>
-          <li><span class="menu-name">겨드랑이</span><span class="menu-price">30,000원</span></li>
-          <li><span class="menu-name">팔 [부분]</span><span class="menu-price">60,000원</span></li>
-          <li><span class="menu-name">배렛나루</span><span class="menu-price">30,000원</span></li>
-          <li><span class="menu-name">유륜</span><span class="menu-price">10,000원</span></li>
-          <li><span class="menu-name">엉덩이 [전체]</span><span class="menu-price">40,000원</span></li>
-        </ul>
       </div>
     </div>
     <p class="price-note">* 위 금액은 2026년 9월 기준이며, 매장 사정에 따라 변경될 수 있습니다.</p>
@@ -936,6 +952,14 @@
       eventDots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === index); });
     });
   }
+
+  document.querySelectorAll('.menu-group-collapsible .menu-group-head').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var group = btn.closest('.menu-group-collapsible');
+      var open = group.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
 
   var lightbox = document.getElementById('lightbox');
   var lightboxImg = document.getElementById('lightboxImg');

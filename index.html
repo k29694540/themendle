@@ -1,0 +1,1016 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+﻿<title>더맨들왁싱</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@300;400;500;600;700;800;900&display=swap');
+
+  :root{
+    --bg:#121411;
+    --bg-alt:#191c17;
+    --surface:#1e221c;
+    --surface-2:#272b23;
+    --border:#3c4237;
+    --border-soft:#272b23;
+    --text:#f4f3ec;
+    --text-body:#c7cbc0;
+    --text-muted:#93998a;
+    --accent:#a3cb8d;
+    --accent-strong:#b9d9a6;
+    --accent-soft:rgba(163,203,141,.14);
+    --accent-ink:#0e150a;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.25), 0 2px 10px rgba(0,0,0,.22);
+    --shadow-md:0 2px 6px rgba(0,0,0,.28), 0 14px 30px rgba(0,0,0,.3);
+    --display:'Gothic A1', 'Apple SD Gothic Neo', sans-serif;
+    --sans:'Gothic A1', 'Apple SD Gothic Neo', sans-serif;
+    --maxw:1120px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text-body);
+    font-family:var(--sans);
+    font-weight:500;
+    letter-spacing:0;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.01em;margin:0;color:var(--text);text-wrap:balance;}
+  p{margin:0;}
+  ul{margin:0;padding:0;list-style:none;}
+  section{scroll-margin-top:76px;}
+  ::selection{background:var(--accent);color:var(--accent-ink);}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:clamp(20px,5vw,56px);padding-right:clamp(20px,5vw,56px);}
+
+  .eyebrow{
+    font-family:var(--sans);
+    font-size:.74rem;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--accent);
+  }
+
+  /* ---------- Nav ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    background:rgba(18,20,17,.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav-inner{
+    max-width:var(--maxw);margin:0 auto;
+    padding:14px clamp(20px,5vw,56px);
+    display:flex;align-items:center;justify-content:space-between;gap:20px;
+  }
+  .nav-brand{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.005em;white-space:nowrap;}
+  .nav-brand span{color:var(--accent);}
+  .nav-links{display:flex;gap:26px;overflow-x:auto;scrollbar-width:none;}
+  .nav-links::-webkit-scrollbar{display:none;}
+  .nav-links a{
+    font-size:.86rem;color:var(--text-muted);white-space:nowrap;
+    padding:4px 0;border-bottom:1px solid transparent;transition:color .2s,border-color .2s;
+  }
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--text);border-color:var(--accent);}
+  .nav-cta{
+    flex:none;background:var(--accent);color:var(--accent-ink);
+    font-size:.82rem;font-weight:700;padding:9px 16px;border-radius:10px;
+    white-space:nowrap;transition:background .2s;
+  }
+  .nav-cta:hover{background:var(--accent-strong);}
+  @media (max-width:720px){ .nav-links{display:none;} }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:var(--sans);font-weight:700;font-size:.95rem;
+    padding:15px 30px;border-radius:10px;border:1px solid transparent;
+    cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .15s;
+  }
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:var(--accent);color:var(--accent-ink);}
+  .btn-primary:hover{background:var(--accent-strong);transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+  .btn-outline{border-color:var(--border);color:var(--text);}
+  .btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px);}
+
+  /* ---------- Motion ---------- */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1);}
+  .reveal.is-visible{opacity:1;transform:translateY(0);}
+  .stack-cards .reveal:nth-child(2){transition-delay:.08s;}
+  .stack-cards .reveal:nth-child(3){transition-delay:.16s;}
+  .menu-groups .reveal:nth-child(2){transition-delay:.06s;}
+  .menu-groups .reveal:nth-child(3){transition-delay:.12s;}
+  .menu-groups .reveal:nth-child(4){transition-delay:.18s;}
+  .care-columns .reveal:nth-child(2){transition-delay:.1s;}
+  .director-badges .reveal:nth-child(2){transition-delay:.06s;}
+  .director-badges .reveal:nth-child(3){transition-delay:.12s;}
+  .review-stats .reveal:nth-child(2){transition-delay:.08s;}
+  .review-stats .reveal:nth-child(3){transition-delay:.16s;}
+
+  .notice-card,.event-banner,.care-panel,.badge{
+    transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
+  }
+  .notice-card:hover,.care-panel:hover{
+    transform:translateY(-4px);box-shadow:var(--shadow-md);
+  }
+  .badge:hover{transform:translateY(-2px);border-color:var(--accent);}
+  .review-card{transition:transform .3s ease;}
+  .review-scroller:hover .review-card:hover{transform:translateY(-4px);}
+
+  .nav-links a{transition:color .2s,border-color .2s,transform .2s;}
+  .nav-cta{transition:background .2s,transform .2s;}
+  .nav-cta:hover{transform:translateY(-1px);}
+
+  @media (prefers-reduced-motion: reduce){
+    .reveal{opacity:1;transform:none;transition:none;}
+    .btn-primary:hover,.btn-outline:hover,.nav-cta:hover{transform:none;}
+    .notice-card:hover,.care-panel:hover,.badge:hover,.review-card,.menu-group{transform:none;}
+    .hero-anim{animation:none !important;opacity:1 !important;transform:none !important;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    padding:168px 0 96px;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% -10%, rgba(163,203,141,.14), transparent 60%),
+      var(--bg);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .hero-illustration{
+    position:absolute;inset:0;width:100%;height:100%;color:var(--accent);opacity:.4;z-index:0;pointer-events:none;
+  }
+  .hero-bg-scrim{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(18,20,17,.3), rgba(18,20,17,.7));
+  }
+  .hero-inner{position:relative;z-index:3;max-width:760px;margin:0 auto;text-align:center;}
+  .hero .eyebrow{display:block;margin-bottom:18px;}
+  .hero h1{font-size:clamp(2.6rem,4vw + 1.2rem,4.4rem);letter-spacing:-.01em;}
+  .hero-sub{
+    margin:22px auto 0;max-width:520px;color:var(--text-body);
+    font-size:1.05rem;line-height:1.75;
+  }
+  .hero-cta{display:flex;gap:14px;justify-content:center;margin-top:38px;flex-wrap:wrap;}
+  .hero-meta{
+    margin-top:44px;display:flex;gap:28px;justify-content:center;flex-wrap:wrap;
+    font-size:.9rem;color:var(--text-muted);
+  }
+  .hero-meta b{color:var(--text);font-weight:600;}
+
+  .hero-anim{opacity:0;transform:translateY(16px);animation:hero-in .8s cubic-bezier(.2,.7,.3,1) forwards;}
+  @keyframes hero-in{to{opacity:1;transform:translateY(0);}}
+
+  /* ---------- Section shell ---------- */
+  .section{padding:88px 0;border-bottom:1px solid var(--border-soft);}
+  .section-alt{background:var(--bg-alt);}
+  .section-head{max-width:640px;margin-bottom:48px;}
+  .section-head.center{margin-left:auto;margin-right:auto;text-align:center;}
+  .section-head h2{font-size:clamp(1.7rem,2.2vw + 1rem,2.5rem);margin-top:14px;}
+  .section-head p{margin-top:16px;color:var(--text-body);}
+
+  /* ---------- Director ---------- */
+  .director{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:center;}
+  .director-photo{
+    aspect-ratio:4/5;border-radius:18px;overflow:hidden;position:relative;
+    background:linear-gradient(160deg,var(--surface-2),var(--bg-alt));
+    border:1px solid var(--border);box-shadow:var(--shadow-md);
+  }
+  .director-photo img{width:100%;height:100%;object-fit:cover;}
+  .director-photo .ph-slot{
+    position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+    color:var(--text-muted);font-size:.78rem;letter-spacing:.06em;text-align:center;padding:20px;
+  }
+  .director-photo .ph-mono{
+    font-family:var(--display);font-weight:900;font-size:2.6rem;color:var(--accent);opacity:.55;
+  }
+  .director-counters{
+    display:flex;justify-content:center;text-align:center;gap:clamp(24px,4vw,52px);margin-top:28px;padding:26px 0;
+    border-top:1px solid var(--border-soft);border-bottom:1px solid var(--border-soft);
+    flex-wrap:wrap;
+  }
+  .counter-item{display:flex;flex-direction:column;align-items:center;gap:6px;}
+  .counter-item svg{width:26px;height:26px;color:var(--accent);margin-bottom:2px;}
+  .counter-number{
+    font-family:var(--display);font-weight:800;font-size:clamp(1.7rem,2.4vw,2.2rem);
+    color:var(--accent-strong);font-variant-numeric:tabular-nums;letter-spacing:-.01em;
+  }
+  .counter-label{font-size:.8rem;color:var(--text-muted);}
+  .director-badges{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;}
+  .badge{
+    border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:.78rem;
+    color:var(--text-muted);background:var(--surface);box-shadow:var(--shadow-sm);
+  }
+  .badge b{color:var(--accent-strong);font-weight:700;}
+  .director-name{font-size:1rem;color:var(--text-muted);margin-bottom:10px;letter-spacing:.02em;}
+  .director-name b{color:var(--text);font-weight:700;}
+  .director-headline-mark{
+    display:block;font-family:var(--display);font-weight:900;font-size:3.4rem;
+    color:var(--accent);opacity:.7;line-height:1;margin-bottom:-14px;
+  }
+  .director h3{font-size:clamp(1.5rem,1.6vw + 1rem,2rem);margin-bottom:18px;line-height:1.4;}
+  .director h3 .accent-text{color:var(--accent-strong);}
+  .director-body{color:var(--text-body);display:flex;flex-direction:column;gap:18px;}
+  .director-point{display:flex;gap:14px;align-items:flex-start;}
+  .director-point svg{flex:none;width:22px;height:22px;color:var(--accent);margin-top:2px;}
+  .director-point h4{
+    font-family:var(--display);font-size:1rem;font-weight:700;color:var(--text);
+    margin-bottom:6px;letter-spacing:-.005em;
+  }
+  .director-point p{font-size:.94rem;line-height:1.65;}
+  .director-quote{
+    margin-top:26px;padding:18px 22px;border-left:2px solid var(--accent);
+    background:var(--accent-soft);font-size:.92rem;font-weight:500;color:var(--text);
+  }
+  @media (max-width:820px){ .director{grid-template-columns:1fr;} .director-photo{max-width:320px;margin:0 auto;} }
+
+  /* ---------- Notice / Event cards ---------- */
+  .stack-cards{display:grid;gap:16px;}
+  .notice-card{
+    display:flex;gap:16px;padding:22px 24px;background:var(--surface);
+    border:1px solid var(--border);border-radius:18px;align-items:flex-start;box-shadow:var(--shadow-sm);
+  }
+  .notice-tag{
+    flex:none;font-size:.7rem;font-weight:700;letter-spacing:.06em;color:var(--accent-ink);
+    background:var(--accent);padding:5px 10px;border-radius:10px;margin-top:2px;
+  }
+  .notice-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .notice-feature{
+    background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;
+    box-shadow:var(--shadow-sm);transition:transform .3s ease,box-shadow .3s ease;
+  }
+  .notice-feature:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+  .notice-feature-img{
+    aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;
+    background:var(--surface-2);padding:18px;border-bottom:1px solid var(--border);
+  }
+  .notice-feature-img img{max-width:100%;max-height:100%;object-fit:contain;border-radius:6px;}
+  .notice-feature-body{
+    padding:26px 28px 30px;display:flex;flex-direction:column;align-items:center;
+    text-align:center;gap:10px;
+  }
+  .notice-feature-body h3{font-size:1.15rem;line-height:1.4;}
+  .notice-feature-body p{color:var(--text-body);font-size:.94rem;line-height:1.6;max-width:32ch;}
+  @media (max-width:640px){ .notice-grid{grid-template-columns:1fr;} }
+  .notice-card p{color:var(--text-body);font-size:.97rem;}
+  .notice-card strong{color:var(--text);font-weight:600;}
+
+  .event-stack{display:grid;gap:20px;}
+  .event-banner{
+    position:relative;overflow:hidden;border-radius:18px;border:1px solid var(--border);
+    background:linear-gradient(120deg,var(--bg-alt),var(--surface) 60%);
+    padding:clamp(28px,5vw,52px);display:grid;gap:20px;box-shadow:var(--shadow-sm);
+  }
+  .event-banner-image{padding:0;}
+  .event-badge-float{position:absolute;top:16px;left:16px;z-index:2;box-shadow:var(--shadow-sm);}
+  .event-gallery{
+    display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  }
+  .event-gallery::-webkit-scrollbar{display:none;}
+  .event-gallery img{flex:none;width:100%;scroll-snap-align:start;display:block;}
+  .event-gallery-dots{
+    position:absolute;bottom:16px;left:0;right:0;z-index:2;
+    display:flex;justify-content:center;gap:8px;
+  }
+  .event-dot{
+    width:8px;height:8px;border-radius:50%;border:none;padding:0;
+    background:rgba(255,255,255,.45);cursor:pointer;transition:background .2s,transform .2s;
+  }
+  .event-dot.is-active{background:var(--accent);transform:scale(1.25);}
+  .event-banner::before{
+    content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle,rgba(163,203,141,.18),transparent 70%);
+  }
+  .event-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .event-badge{
+    background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:.75rem;
+    letter-spacing:.05em;padding:6px 12px;border-radius:10px;
+  }
+  .event-banner h3{font-size:clamp(1.4rem,1.8vw + 1rem,1.9rem);position:relative;}
+  .event-banner p{color:var(--text-body);max-width:520px;position:relative;}
+  .event-period{font-size:.82rem;color:var(--text-muted);position:relative;}
+
+  /* ---------- Services / pricing ---------- */
+  .menu-groups{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .menu-group{
+    background:var(--surface);border:1px solid var(--border);border-radius:18px;
+    padding:clamp(22px,3vw,30px);box-shadow:var(--shadow-sm);
+    transition:transform .3s ease,box-shadow .3s ease;
+  }
+  .menu-group:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
+  .menu-group-event{border-color:var(--accent);background:var(--accent-soft);}
+  .menu-group-wide{grid-column:1 / -1;}
+  .menu-list-2col{columns:2;column-gap:36px;}
+  .menu-list-2col li{break-inside:avoid;}
+  @media (max-width:640px){ .menu-list-2col{columns:1;} }
+  .menu-group-head{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+  .menu-group-head svg{flex:none;width:22px;height:22px;color:var(--accent);}
+  .menu-group-head h3{font-size:1.2rem;}
+  .menu-badge{
+    background:var(--accent);color:var(--accent-ink);font-size:.68rem;font-weight:800;
+    letter-spacing:.05em;padding:4px 9px;border-radius:10px;
+  }
+  .menu-list li{
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+    padding:14px 0;border-top:1px solid var(--border-soft);
+  }
+  .menu-list li:first-child{border-top:none;padding-top:0;}
+  .menu-name{color:var(--text);font-weight:700;font-size:1rem;display:flex;flex-direction:column;gap:4px;}
+  .menu-name small{color:var(--text-muted);font-weight:500;font-size:.82rem;}
+  .menu-price{
+    font-family:var(--sans);font-weight:800;color:var(--accent-strong);font-size:1.1rem;
+    font-variant-numeric:tabular-nums;white-space:nowrap;
+  }
+  .price-note{margin-top:22px;font-size:.85rem;color:var(--text-body);}
+  .menu-event-sub{
+    font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--text-muted);margin:18px 0 8px;
+  }
+  .menu-event-sub:first-of-type{margin-top:2px;}
+  .menu-price-discount{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
+  .menu-price-old{
+    font-size:.76rem;font-weight:500;color:var(--text-muted);
+    text-decoration:line-through;white-space:nowrap;
+  }
+  .menu-event-note{
+    text-align:center;background:var(--accent-soft);color:var(--accent-strong);
+    font-weight:700;font-size:.9rem;padding:10px 16px;border-radius:10px;margin:6px 0 4px;
+  }
+  @media (max-width:720px){ .menu-groups{grid-template-columns:1fr;} }
+
+  /* ---------- Care checklist ---------- */
+  .care-columns{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  .care-panel{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:clamp(24px,3vw,34px);box-shadow:var(--shadow-sm);}
+  .care-panel .eyebrow{display:block;margin-bottom:8px;}
+  .care-head{display:flex;align-items:center;gap:10px;margin-bottom:20px;}
+  .care-head svg{flex:none;width:24px;height:24px;color:var(--accent);}
+  .care-panel h3{font-size:1.3rem;margin-bottom:0;}
+  .care-list li{
+    display:flex;gap:12px;padding:11px 0;border-top:1px solid var(--border-soft);
+    color:var(--text-body);font-size:.92rem;
+  }
+  .care-list li:first-child{border-top:none;}
+  .care-list svg{flex:none;margin-top:3px;color:var(--accent);}
+  @media (max-width:820px){ .care-columns{grid-template-columns:1fr;} }
+
+  /* ---------- Reviews ---------- */
+  .review-scroller{
+    overflow:hidden;position:relative;padding-bottom:10px;
+    margin:0 calc(clamp(20px,5vw,56px) * -1);
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+  }
+  .review-track{
+    display:flex;gap:18px;width:max-content;
+    animation:review-marquee 46s linear infinite;
+  }
+  .review-scroller:hover .review-track{animation-play-state:paused;}
+  @keyframes review-marquee{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .review-track{animation:none;overflow-x:auto;}
+    .review-scroller{overflow-x:auto;-webkit-mask-image:none;mask-image:none;}
+  }
+  .review-card{
+    flex:none;width:min(340px,80vw);
+    background:var(--surface);border:1px solid var(--border);border-radius:18px;
+    padding:26px 24px;display:flex;flex-direction:column;gap:14px;box-shadow:var(--shadow-sm);
+  }
+  .review-mark{font-family:var(--display);font-size:2.4rem;color:var(--accent);line-height:1;font-weight:900;}
+  .review-tag{font-size:.72rem;color:var(--accent);letter-spacing:.06em;font-weight:700;text-transform:uppercase;}
+  .review-text{color:var(--text);font-size:.96rem;line-height:1.8;flex:1;}
+  .review-foot{font-size:.78rem;color:var(--text-muted);border-top:1px solid var(--border-soft);padding-top:12px;}
+  .review-stats{display:flex;gap:56px;margin-top:44px;flex-wrap:wrap;justify-content:center;}
+  .review-stat{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;}
+  .review-stat svg{width:28px;height:28px;color:var(--accent);}
+  .review-stat b{display:block;font-family:var(--display);font-size:2rem;color:var(--accent-strong);}
+  .review-stat span{font-size:.8rem;color:var(--text-muted);}
+
+  /* ---------- Location ---------- */
+  .location{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
+  .info-rows{display:flex;flex-direction:column;gap:0;}
+  .info-row{display:flex;gap:16px;padding:18px 0;border-top:1px solid var(--border-soft);}
+  .info-row:first-child{border-top:none;padding-top:0;}
+  .info-row svg{flex:none;color:var(--accent);margin-top:2px;}
+  .info-row .label{font-size:.76rem;color:var(--text-muted);letter-spacing:.04em;margin-bottom:4px;}
+  .info-row .value{color:var(--text);font-size:.98rem;}
+  .info-row .value small{display:block;color:var(--text-muted);font-size:.82rem;margin-top:4px;}
+  .location-actions{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap;}
+  .map-frame{
+    aspect-ratio:1/1;border-radius:18px;border:1px solid var(--border);
+    background:var(--surface);box-shadow:var(--shadow-md);
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  }
+  .map-frame img{width:100%;height:100%;object-fit:cover;}
+
+  /* ---------- Footer ---------- */
+  .footer{padding:64px 0 120px;background:var(--bg-alt);}
+  .footer-top{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:24px;flex-wrap:wrap;
+    padding-bottom:32px;border-bottom:1px solid var(--border-soft);
+  }
+  .footer-brand{font-family:var(--display);font-weight:900;font-size:1.4rem;}
+  .footer-brand span{color:var(--accent);}
+  .footer-tagline{color:var(--text-muted);font-size:.85rem;margin-top:8px;}
+  .footer-info{display:flex;flex-direction:column;gap:6px;font-size:.86rem;color:var(--text-body);text-align:right;}
+  .footer-bottom{
+    margin-top:28px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    font-size:.78rem;color:var(--text-muted);
+  }
+  @media (max-width:640px){
+    .location{grid-template-columns:1fr;}
+    .footer-top{flex-direction:column;}
+    .footer-info{text-align:left;}
+    .footer-bottom{flex-direction:column;}
+  }
+
+  /* ---------- Mobile sticky CTA ---------- */
+  .mobile-cta{
+    position:fixed;bottom:0;left:0;right:0;z-index:90;display:none;
+    background:rgba(18,20,17,.92);backdrop-filter:blur(10px);
+    border-top:1px solid var(--border);padding:10px 14px;gap:10px;
+  }
+  .mobile-cta a{flex:1;text-align:center;padding:13px 0;font-size:.9rem;font-weight:700;border-radius:10px;}
+  .mobile-cta .m-book{background:var(--accent);color:var(--accent-ink);}
+  @media (max-width:720px){
+    .mobile-cta{display:flex;}
+    .footer{padding-bottom:96px;}
+  }
+
+  /* ---------- Lightbox ---------- */
+  .zoomable{cursor:zoom-in;}
+  .lightbox{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(9,10,8,.92);
+    display:flex;align-items:center;justify-content:center;padding:40px;
+  }
+  .lightbox[hidden]{display:none;}
+  .lightbox-img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:12px;box-shadow:var(--shadow-md);}
+  .lightbox-close{
+    position:fixed;top:20px;right:20px;width:44px;height:44px;border-radius:50%;
+    background:var(--surface);border:1px solid var(--border);color:var(--text);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+  }
+  .lightbox-close svg{width:20px;height:20px;}
+  .lightbox-close:hover{border-color:var(--accent);color:var(--accent);}
+</style>
+</head>
+<body>
+
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="nav-brand">THE-<span>MENDLE</span></a>
+    <div class="nav-links">
+      <a href="#director">원장소개</a>
+      <a href="#reviews">후기</a>
+      <a href="#notice">공지사항</a>
+      <a href="#event">이벤트</a>
+      <a href="#services">시술·금액</a>
+      <a href="#care">주의사항</a>
+      <a href="#location">오시는길</a>
+    </div>
+    <a class="nav-cta" href="https://naver.me/xenlpI3X" target="_blank" rel="noopener">예약하기</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="hero-illustration" viewBox="0 0 1440 640" fill="none" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g transform="translate(40,420) rotate(-6)">
+      <path d="M0 210Q54 128 32 18" stroke="currentColor" stroke-width="2"/>
+      <ellipse cx="27" cy="156" rx="11" ry="26" transform="rotate(-30 27 156)" stroke="currentColor" stroke-width="1.6"/>
+      <ellipse cx="48" cy="108" rx="10" ry="23" transform="rotate(24 48 108)" stroke="currentColor" stroke-width="1.6"/>
+      <ellipse cx="18" cy="66" rx="8.5" ry="20" transform="rotate(-16 18 66)" stroke="currentColor" stroke-width="1.6"/>
+    </g>
+    <g transform="translate(1400,420) scale(-1,1) rotate(-6)">
+      <path d="M0 210Q54 128 32 18" stroke="currentColor" stroke-width="2"/>
+      <ellipse cx="27" cy="156" rx="11" ry="26" transform="rotate(-30 27 156)" stroke="currentColor" stroke-width="1.6"/>
+      <ellipse cx="48" cy="108" rx="10" ry="23" transform="rotate(24 48 108)" stroke="currentColor" stroke-width="1.6"/>
+      <ellipse cx="18" cy="66" rx="8.5" ry="20" transform="rotate(-16 18 66)" stroke="currentColor" stroke-width="1.6"/>
+    </g>
+    <path d="M300 70c15 19 27 34 27 48a27 27 0 1 1-54 0c0-14 12-29 27-48Z" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M1150 500c15 19 27 34 27 48a27 27 0 1 1-54 0c0-14 12-29 27-48Z" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M1120 90c10 13 18 22 18 32a18 18 0 1 1-36 0c0-10 8-19 18-32Z" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M260 540c10 13 18 22 18 32a18 18 0 1 1-36 0c0-10 8-19 18-32Z" stroke="currentColor" stroke-width="1.4"/>
+    <path d="M-40 566c130 42 230 42 360 0s230-42 360 0 230 42 360 0 230-42 360 0" stroke="currentColor" stroke-width="1.4" opacity=".75"/>
+    <path d="M-40 606c130 42 230 42 360 0s230-42 360 0 230 42 360 0 230-42 360 0" stroke="currentColor" stroke-width="1.4" opacity=".5"/>
+  </svg>
+  <div class="hero-bg-scrim" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow hero-anim" style="animation-delay:.05s">BUSAN · MEN-DLE SIGNATURE AROMA WAXING &amp; THERAPY</span>
+    <h1 class="hero-anim" style="animation-delay:.15s">더맨들왁싱</h1>
+    <p class="hero-sub hero-anim" style="animation-delay:.28s">5년 경력 원장이 상담부터 시술, 사후관리까지 처음부터 끝까지 직접 책임지는<br>남성 전문 프라이빗 왁싱 &amp; 테라피 샵입니다.</p>
+    <div class="hero-cta hero-anim" style="animation-delay:.4s">
+      <a class="btn btn-primary" href="https://naver.me/xenlpI3X" target="_blank" rel="noopener">네이버로 예약하기</a>
+    </div>
+    <div class="hero-meta hero-anim" style="animation-delay:.52s">
+      <span><b>영업시간</b> 매일 10:00 – 22:00</span>
+      <span><b>운영방식</b> 100% 예약제</span>
+      <span><b>위치</b> 부산광역시 남구 수영로 282 현대오피스텔, 3층 304호</span>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="director">
+  <div class="wrap director">
+    <div class="director-photo reveal">
+      <img src="director.jpg" alt="더맨들왁싱 카이 원장" class="zoomable">
+    </div>
+    <div class="reveal">
+      <span class="eyebrow">DIRECTOR</span>
+      <div class="director-name" style="margin-top:14px;"><b>카이</b> 원장</div>
+      <span class="director-headline-mark">“</span>
+      <h3>남자는 <span class="accent-text">남자가</span><br>제일 잘 압니다.</h3>
+      <div class="director-body">
+        <div class="director-point">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 9.5h17M8 3v3.4M16 3v3.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <div>
+            <h4>5년, 한 길만 걸어온 전문성</h4>
+            <p>예민한 부위일수록 손끝의 감각과 경험이 결과를 가른다는 믿음으로, 상담부터 시술, 사후관리까지 모든 과정을 원장이 직접 진행합니다.</p>
+          </div>
+        </div>
+        <div class="director-point">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12.5l2 2 4.5-5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/></svg>
+          <div>
+            <h4>컨디션에 맞춘 맞춤 케어</h4>
+            <p>매 시술마다 고객의 피부 컨디션과 통증 민감도를 먼저 살피고, 그날의 상태에 맞춰 강도와 방법을 조절합니다. 시술이 끝난 뒤에도 재주기와 관리법을 하나하나 짚어드립니다.</p>
+          </div>
+        </div>
+      </div>
+      <div class="director-quote">“처음 오신 날의 긴장이 재방문의 확신으로 바뀔 때까지, 한 분 한 분 끝까지 책임지는 것이 원장으로서의 원칙입니다.”</div>
+      <div class="director-counters reveal">
+        <div class="counter-item">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 12.5l2 2 4.5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/></svg>
+          <span class="counter-number"><span class="count-up" data-target="2000">0</span>+</span>
+          <span class="counter-label">누적 시술 횟수</span>
+        </div>
+        <div class="counter-item">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M3.5 9.5h17M8 3v3.4M16 3v3.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <span class="counter-number"><span class="count-up" data-target="5">0</span>년</span>
+          <span class="counter-label">남성 왁싱 전문 경력</span>
+        </div>
+        <div class="counter-item">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-7.5-4.6-9.5-9C1 7.8 2.8 4.5 6.2 4.2 8.4 4 10.6 5.2 12 7.2 13.4 5.2 15.6 4 17.8 4.2 21.2 4.5 23 7.8 21.5 11 19.5 15.4 12 20 12 20Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          <span class="counter-number"><span class="count-up" data-target="100">0</span>%</span>
+          <span class="counter-label">재방문 의사 응답률</span>
+        </div>
+      </div>
+      <div class="director-badges">
+        <div class="badge reveal"><b>5년</b> 남성 왁싱 전문 경력</div>
+        <div class="badge reveal"><b>1:1</b> 프라이빗 전담 케어</div>
+        <div class="badge reveal"><b>100%</b> 재방문 의사 후기</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="reviews">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">REVIEW</span>
+      <h2>고객님들의 진짜 후기</h2>
+      <p>과장 없이, 실제 예약 고객님들이 남겨주신 이야기입니다.</p>
+    </div>
+    <div class="review-scroller">
+      <div class="review-track">
+        <div class="review-card">
+          <span class="review-mark">“</span>
+          <span class="review-tag">재방문 후기</span>
+          <p class="review-text">두번째 재방문입니다. 인기가 많은 곳이라 힘들게 예약해서 갔는데 역시 또 후회가 없습니다. 진짜 여기 한번 받으시면 다른 데 절대 못 갑니다! 원장님 너무 친절하시고 강력추천 입니다 ㅋㅋ</p>
+          <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card">
+          <span class="review-mark">“</span>
+          <span class="review-tag">재방문 후기</span>
+          <p class="review-text">저번 방문 때 알려주신 관리법대로 관리하고 재주기 맞춰 방문해서인지 오늘은 통증이 확실히 덜했습니다. 항상 친절하고 최선을 다해주셔서 믿고 갑니다. 공간 디퓨저 향도 좋고 분위기가 편안해요.</p>
+          <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card">
+          <span class="review-mark">“</span>
+          <span class="review-tag">브라질리언 후기</span>
+          <p class="review-text">브라질리언 왁싱은 처음이라 긴장됐고 컨디션도 안 좋았던 날이라 걱정했는데, 무색하게 너무 친절하고 꼼꼼하게 관리해주셨습니다. 진정관리까지 챙겨주시는 걸 보면 가성비도 정말 좋아요.</p>
+          <div class="review-foot">브라질리언 왁싱 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card">
+          <span class="review-mark">“</span>
+          <span class="review-tag">벨리테라피 후기</span>
+          <p class="review-text">테라피 중간중간 배 라인이 가볍고 부드러워지는 느낌이 들었어요. 끝나고 나니 훨씬 편안하고 라인도 정돈된 기분입니다. 프라이빗하게 예약되어 있어 주변 신경 안 쓰여서 좋았어요. 재방문의사 100%입니다!</p>
+          <div class="review-foot">벨리테라피 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card">
+          <span class="review-mark">“</span>
+          <span class="review-tag">첫 방문 후기</span>
+          <p class="review-text">다니던 왁싱샵 말고 다른 곳을 찾다가 리뷰가 좋아서 예약하고 찾아왔습니다. 정말 안 아프게 잘해주시고, 왁싱 후 관리법까지 하나부터 열까지 자세히 알려주셨어요. 다음에도 여기만 갈 것 같습니다.</p>
+          <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card">
+          <span class="review-mark">“</span>
+          <span class="review-tag">단골 후기</span>
+          <p class="review-text">왁싱 자체를 이제 너무 편하게 받을 수 있게 잘해주세요. 사후관리가 너무 깔끔해서 항상 만족합니다. 다음에 또 방문할게요!</p>
+          <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card" aria-hidden="true">
+          <span class="review-mark">“</span>
+          <span class="review-tag">재방문 후기</span>
+          <p class="review-text">두번째 재방문입니다. 인기가 많은 곳이라 힘들게 예약해서 갔는데 역시 또 후회가 없습니다. 진짜 여기 한번 받으시면 다른 데 절대 못 갑니다! 원장님 너무 친절하시고 강력추천 입니다 ㅋㅋ</p>
+          <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card" aria-hidden="true">
+          <span class="review-mark">“</span>
+          <span class="review-tag">재방문 후기</span>
+          <p class="review-text">저번 방문 때 알려주신 관리법대로 관리하고 재주기 맞춰 방문해서인지 오늘은 통증이 확실히 덜했습니다. 항상 친절하고 최선을 다해주셔서 믿고 갑니다. 공간 디퓨저 향도 좋고 분위기가 편안해요.</p>
+          <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card" aria-hidden="true">
+          <span class="review-mark">“</span>
+          <span class="review-tag">브라질리언 후기</span>
+          <p class="review-text">브라질리언 왁싱은 처음이라 긴장됐고 컨디션도 안 좋았던 날이라 걱정했는데, 무색하게 너무 친절하고 꼼꼼하게 관리해주셨습니다. 진정관리까지 챙겨주시는 걸 보면 가성비도 정말 좋아요.</p>
+          <div class="review-foot">브라질리언 왁싱 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card" aria-hidden="true">
+          <span class="review-mark">“</span>
+          <span class="review-tag">벨리테라피 후기</span>
+          <p class="review-text">테라피 중간중간 배 라인이 가볍고 부드러워지는 느낌이 들었어요. 끝나고 나니 훨씬 편안하고 라인도 정돈된 기분입니다. 프라이빗하게 예약되어 있어 주변 신경 안 쓰여서 좋았어요. 재방문의사 100%입니다!</p>
+          <div class="review-foot">벨리테라피 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card" aria-hidden="true">
+          <span class="review-mark">“</span>
+          <span class="review-tag">첫 방문 후기</span>
+          <p class="review-text">다니던 왁싱샵 말고 다른 곳을 찾다가 리뷰가 좋아서 예약하고 찾아왔습니다. 정말 안 아프게 잘해주시고, 왁싱 후 관리법까지 하나부터 열까지 자세히 알려주셨어요. 다음에도 여기만 갈 것 같습니다.</p>
+          <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
+        </div>
+        <div class="review-card" aria-hidden="true">
+          <span class="review-mark">“</span>
+          <span class="review-tag">단골 후기</span>
+          <p class="review-text">왁싱 자체를 이제 너무 편하게 받을 수 있게 잘해주세요. 사후관리가 너무 깔끔해서 항상 만족합니다. 다음에 또 방문할게요!</p>
+          <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
+        </div>
+      </div>
+    </div>
+    <div class="review-stats">
+      <div class="review-stat reveal">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="8" r="5" stroke="currentColor" stroke-width="1.4"/><path d="M9 12.5 7 21l5-2.5L17 21l-2-8.5" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <b>5년</b><span>원장 시술 경력</span>
+      </div>
+      <div class="review-stat reveal">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-7.5-4.6-9.5-9C1 7.8 2.8 4.5 6.2 4.2 8.4 4 10.6 5.2 12 7.2 13.4 5.2 15.6 4 17.8 4.2 21.2 4.5 23 7.8 21.5 11 19.5 15.4 12 20 12 20Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        <b>100%</b><span>재방문 의사 응답</span>
+      </div>
+      <div class="review-stat reveal">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l7 3v5c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <b>1:1</b><span>프라이빗 예약 케어</span>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="notice">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">NOTICE</span>
+      <h2>공지사항</h2>
+    </div>
+    <div class="notice-grid">
+      <div class="notice-feature reveal">
+        <div class="notice-feature-img">
+          <img src="kcia-award.jpg" alt="2026 KCIA 한국소비자산업평가 우수 업체 인증패" class="zoomable">
+        </div>
+        <div class="notice-feature-body">
+          <span class="eyebrow">CERTIFIED</span>
+          <h3>2026 KCIA 한국소비자산업평가 우수 업체</h3>
+          <p>부산광역시 남구 왁싱·체형관리 부문에서 인정받은 신뢰할 수 있는 매장입니다.</p>
+        </div>
+      </div>
+      <div class="notice-feature reveal">
+        <div class="notice-feature-img">
+          <img src="holiday-notice.jpg" alt="추석연휴 휴무안내" class="zoomable">
+        </div>
+        <div class="notice-feature-body">
+          <span class="eyebrow">HOLIDAY</span>
+          <h3>추석 연휴 휴무 안내</h3>
+          <p>9월 24일(목) ~ 9월 26일(토)은 휴무이며, 9월 27일(일)부터 정상 운영합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="event">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">EVENT</span>
+      <h2>이벤트</h2>
+    </div>
+    <div class="event-stack">
+      <div class="event-banner event-banner-image reveal">
+        <span class="event-badge event-badge-float">진행중</span>
+        <div class="event-gallery" id="eventGallery">
+          <img src="event-award.jpg" alt="2026 한국소비자산업평가 우수업체 선정 기념 이벤트" class="zoomable">
+          <img src="event-award-2.jpg" alt="2026 우수업체 선정 기념 이벤트 - 부위별 할인 가격표" class="zoomable">
+        </div>
+        <div class="event-gallery-dots" id="eventGalleryDots">
+          <button type="button" class="event-dot is-active" aria-label="이미지 1로 이동"></button>
+          <button type="button" class="event-dot" aria-label="이미지 2로 이동"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">MENU &amp; PRICE</span>
+      <h2>부위별 시술 및 금액</h2>
+      <p>고객의 피부와 컨디션에 맞춰 강도를 조절하는 시그니처 아로마 왁싱입니다.</p>
+    </div>
+    <div class="menu-groups">
+      <div class="menu-group menu-group-event menu-group-wide reveal">
+        <div class="menu-group-head">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+          <span class="menu-badge">EVENT</span>
+          <h3>2026 우수업체 선정 기념 이벤트</h3>
+        </div>
+        <div class="menu-event-sub">WAXING</div>
+        <ul class="menu-list menu-list-2col">
+          <li>
+            <span class="menu-name">브라질리언</span>
+            <span class="menu-price-discount"><span class="menu-price-old">85,000원</span><span class="menu-price">65,000원</span></span>
+          </li>
+          <li>
+            <span class="menu-name">다리 전체</span>
+            <span class="menu-price-discount"><span class="menu-price-old">100,000원</span><span class="menu-price">75,000원</span></span>
+          </li>
+          <li>
+            <span class="menu-name">겨드랑이</span>
+            <span class="menu-price-discount"><span class="menu-price-old">30,000원</span><span class="menu-price">15,000원</span></span>
+          </li>
+          <li>
+            <span class="menu-name">배 전체</span>
+            <span class="menu-price-discount"><span class="menu-price-old">40,000원</span><span class="menu-price">30,000원</span></span>
+          </li>
+          <li>
+            <span class="menu-name">가슴 전체</span>
+            <span class="menu-price-discount"><span class="menu-price-old">40,000원</span><span class="menu-price">30,000원</span></span>
+          </li>
+        </ul>
+        <p class="menu-event-note">나머지 왁싱 시술 부위 20% 할인</p>
+        <div class="menu-event-sub">THERAPY</div>
+        <ul class="menu-list menu-list-2col">
+          <li>
+            <span class="menu-name">복부순환테라피</span>
+            <span class="menu-price-discount"><span class="menu-price-old">75,000원</span><span class="menu-price">45,000원</span></span>
+          </li>
+          <li>
+            <span class="menu-name">다리순환테라피</span>
+            <span class="menu-price-discount"><span class="menu-price-old">75,000원</span><span class="menu-price">45,000원</span></span>
+          </li>
+        </ul>
+      </div>
+      <div class="menu-group menu-group-wide reveal">
+        <div class="menu-group-head">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g stroke="currentColor" stroke-width="1.3"><ellipse cx="12" cy="7" rx="2.4" ry="4.6"/><ellipse cx="12" cy="17" rx="2.4" ry="4.6"/><ellipse cx="7" cy="12" rx="4.6" ry="2.4"/><ellipse cx="17" cy="12" rx="4.6" ry="2.4"/></g><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>
+          <h3>프리미엄 브라질리언</h3>
+        </div>
+        <ul class="menu-list menu-list-2col">
+          <li>
+            <span class="menu-name">프리미엄 저통증 아로마 브라질리언 [고급]<small>항문 포함</small></span>
+            <span class="menu-price">85,000원</span>
+          </li>
+          <li>
+            <span class="menu-name">항문만 왁싱</span>
+            <span class="menu-price">30,000원</span>
+          </li>
+          <li>
+            <span class="menu-name">프리미엄 브라질리언 [고급]<small>항문 포함 + 배렛나루</small></span>
+            <span class="menu-price">90,000원</span>
+          </li>
+          <li>
+            <span class="menu-name">프리미엄 브라질리언 [고급]<small>항문 포함 + 엉덩이</small></span>
+            <span class="menu-price">90,000원</span>
+          </li>
+        </ul>
+      </div>
+      <div class="menu-group menu-group-wide reveal">
+        <div class="menu-group-head">
+          <svg viewBox="0 0 24 32" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:17px;height:22px;"><circle cx="12" cy="4" r="3" stroke="currentColor" stroke-width="1.3"/><rect x="7" y="8" width="10" height="12" rx="4" stroke="currentColor" stroke-width="1.3"/><rect x="3.3" y="9" width="3" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><rect x="17.7" y="9" width="3" height="10" rx="1.5" stroke="currentColor" stroke-width="1.1"/><rect x="8" y="19" width="3.2" height="11" rx="1.6" stroke="currentColor" stroke-width="1.3"/><rect x="12.8" y="19" width="3.2" height="11" rx="1.6" stroke="currentColor" stroke-width="1.3"/></svg>
+          <h3>바디 왁싱</h3>
+        </div>
+        <ul class="menu-list menu-list-2col">
+          <li><span class="menu-name">다리 [전체]</span><span class="menu-price">100,000원</span></li>
+          <li><span class="menu-name">배 [전체]</span><span class="menu-price">40,000원</span></li>
+          <li><span class="menu-name">가슴 [전체]</span><span class="menu-price">40,000원</span></li>
+          <li><span class="menu-name">팔 [전체]</span><span class="menu-price">80,000원</span></li>
+          <li><span class="menu-name">다리 [부분]</span><span class="menu-price">70,000원</span></li>
+          <li><span class="menu-name">겨드랑이</span><span class="menu-price">30,000원</span></li>
+          <li><span class="menu-name">팔 [부분]</span><span class="menu-price">60,000원</span></li>
+          <li><span class="menu-name">배렛나루</span><span class="menu-price">30,000원</span></li>
+          <li><span class="menu-name">유륜</span><span class="menu-price">10,000원</span></li>
+          <li><span class="menu-name">엉덩이 [전체]</span><span class="menu-price">40,000원</span></li>
+        </ul>
+      </div>
+    </div>
+    <p class="price-note">* 위 금액은 2026년 9월 기준이며, 매장 사정에 따라 변경될 수 있습니다.</p>
+  </div>
+</section>
+
+<section class="section section-alt" id="care">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">CARE GUIDE</span>
+      <h2>왁싱 전후 주의사항 및 관리법</h2>
+      <p>더 편안하고 안전한 시술, 그리고 관리를 위해 아래 내용을 참고해주세요.</p>
+    </div>
+    <div class="care-columns">
+      <div class="care-panel reveal">
+        <span class="eyebrow">BEFORE</span>
+        <div class="care-head">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="5" width="17" height="16" rx="3" stroke="currentColor" stroke-width="1.4"/><path d="M3.5 9.5h17M8 3v3.4M16 3v3.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/><path d="M8 14l2.2 2.2L16 10.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>시술 전 주의사항</h3>
+        </div>
+        <ul class="care-list">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>시술 3일 전부터는 스크럽·각질 제거를 자제해주세요.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>모의 길이는 0.5~1cm 정도가 가장 시술하기 좋습니다.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>사우나·찜질방·반신욕은 시술 직후가 아닌 다른 날에 이용해주세요.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>음주 후에는 통증에 예민해질 수 있어 방문을 자제해주세요.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>피부 트러블·상처·복용 중인 약이 있다면 예약 시 미리 알려주세요.</li>
+        </ul>
+      </div>
+      <div class="care-panel reveal">
+        <span class="eyebrow">AFTER</span>
+        <div class="care-head">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21c-4-2.6-7-5.6-7-10a7 7 0 0 1 14 0c0 4.4-3 7.4-7 10Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9.2 11.2l2 2 3.6-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>시술 후 관리법</h3>
+        </div>
+        <ul class="care-list">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>시술 후 24시간은 사우나·찜질방·뜨거운 욕조를 피해주세요.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>꽉 끼는 옷보다는 통풍이 잘 되는 속옷·의류를 착용해주세요.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>자외선 노출을 줄이고, 시술 부위는 순하게 보습해주세요.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>모낭염 예방을 위해 3일 후부터 순한 각질 관리를 시작해주세요.</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>붉은기나 트러블이 계속되면 바로 원장님께 문의해주세요.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="section" id="location">
+  <div class="wrap location">
+    <div class="reveal">
+      <span class="eyebrow">LOCATION</span>
+      <h2 style="margin-top:14px;font-size:clamp(1.7rem,2.2vw + 1rem,2.5rem);">오시는 길</h2>
+      <div class="info-rows" style="margin-top:32px;">
+        <div class="info-row">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="9.5" r="2.6" stroke="currentColor" stroke-width="1.8"/></svg>
+          <div>
+            <div class="label">주소</div>
+            <div class="value">부산광역시 남구 수영로 282<small>현대오피스텔 3층 304호</small></div>
+          </div>
+        </div>
+      </div>
+      <div class="location-actions">
+        <a class="btn btn-primary" href="https://naver.me/xenlpI3X" target="_blank" rel="noopener">네이버 예약하기</a>
+        <a class="btn btn-outline" id="mapLink" href="#" target="_blank" rel="noopener">네이버 지도에서 보기</a>
+      </div>
+    </div>
+    <div class="map-frame reveal">
+      <img src="map.jpg" alt="더맨들왁싱 오시는 길 안내도" class="zoomable">
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand">더맨들<span>왁싱</span></div>
+        <div class="footer-tagline">MEN-DLE Signature Aroma Waxing &amp; Therapy</div>
+      </div>
+      <div class="footer-info">
+        <span>부산광역시 남구 수영로 282 현대오피스텔 3층 304호</span>
+        <span>매일 10:00–22:00 · 100% 예약제</span>
+      </div>
+    </div>
+    <div style="margin-top:32px;">
+      <a class="btn btn-primary" href="https://naver.me/xenlpI3X" target="_blank" rel="noopener">지금 바로 예약하기</a>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 더맨들왁싱. All rights reserved.</span>
+      <span>본 페이지의 안내 금액 및 이벤트는 사정에 따라 변경될 수 있습니다.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="mobile-cta">
+  <a class="m-book" href="https://naver.me/xenlpI3X" target="_blank" rel="noopener">예약하기</a>
+</div>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button class="lightbox-close" id="lightboxClose" type="button" aria-label="이미지 닫기">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+  </button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+</div>
+
+<script>
+  var addr = "부산광역시 남구 수영로 282 현대오피스텔 3층 304호";
+  var mapLink = document.getElementById('mapLink');
+  if (mapLink) {
+    mapLink.href = "https://map.naver.com/p/search/" + encodeURIComponent(addr);
+  }
+
+  var eventGallery = document.getElementById('eventGallery');
+  if (eventGallery) {
+    var eventDots = document.querySelectorAll('#eventGalleryDots .event-dot');
+    eventDots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () {
+        var img = eventGallery.children[i];
+        if (img) img.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      });
+    });
+    eventGallery.addEventListener('scroll', function () {
+      var index = Math.round(eventGallery.scrollLeft / eventGallery.clientWidth);
+      eventDots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === index); });
+    });
+  }
+
+  var lightbox = document.getElementById('lightbox');
+  var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxClose = document.getElementById('lightboxClose');
+  function openLightbox(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt || '';
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox() {
+    lightbox.hidden = true;
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  }
+  document.querySelectorAll('.zoomable').forEach(function (el) {
+    el.addEventListener('click', function () { openLightbox(el.src, el.alt); });
+  });
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !lightbox.hidden) closeLightbox(); });
+
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var revealEls = document.querySelectorAll('.reveal');
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(function (el) { io.observe(el); });
+  }
+
+  function animateCount(el) {
+    var target = parseInt(el.getAttribute('data-target'), 10) || 0;
+    if (reduceMotion) { el.textContent = target.toLocaleString('ko-KR'); return; }
+    var duration = 2600;
+    var start = null;
+    function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+    function step(ts) {
+      if (start === null) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var value = Math.round(target * easeOutExpo(progress));
+      el.textContent = value.toLocaleString('ko-KR');
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var countEls = document.querySelectorAll('.count-up');
+  if (countEls.length) {
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      countEls.forEach(animateCount);
+    } else {
+      var countIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            animateCount(entry.target);
+            countIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4 });
+      countEls.forEach(function (el) { countIo.observe(el); });
+    }
+  }
+</script>
+
+</body>
+</html>

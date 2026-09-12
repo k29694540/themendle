@@ -427,14 +427,25 @@
     .review-scroller{overflow-x:auto;-webkit-mask-image:none;mask-image:none;}
   }
   .review-card{
+    position:relative;overflow:hidden;
     flex:none;width:min(340px,80vw);
-    background:#f5f2e9;border:1px solid rgba(0,0,0,.05);border-radius:18px;
-    padding:26px 24px;display:flex;flex-direction:column;gap:14px;box-shadow:0 16px 36px rgba(0,0,0,.4);
+    background:#f5f2e9;border:1px solid rgba(0,0,0,.05);border-left:4px solid #3f6b3a;border-radius:18px;
+    padding:30px 24px 24px;display:flex;flex-direction:column;gap:10px;box-shadow:0 16px 36px rgba(0,0,0,.4);
   }
-  .review-mark{font-family:var(--display);font-size:2.4rem;color:#2f4a2b;line-height:1;font-weight:900;}
-  .review-tag{font-size:.72rem;color:#3f6b3a;letter-spacing:.06em;font-weight:700;text-transform:uppercase;}
-  .review-text{color:#262922;font-size:.96rem;line-height:1.8;flex:1;}
-  .review-foot{font-size:.78rem;color:#767c6d;border-top:1px solid rgba(0,0,0,.08);padding-top:12px;}
+  .review-mark{
+    position:absolute;top:-6px;right:14px;z-index:0;
+    font-family:var(--display);font-size:5.5rem;color:#3f6b3a;line-height:1;font-weight:900;opacity:.1;
+    pointer-events:none;
+  }
+  .review-tag{
+    position:relative;z-index:1;align-self:flex-start;
+    background:rgba(63,107,58,.1);color:#3f6b3a;
+    padding:4px 11px;border-radius:999px;
+    font-size:.68rem;letter-spacing:.05em;font-weight:700;text-transform:uppercase;
+  }
+  .review-stars{position:relative;z-index:1;color:#3f6b3a;font-size:.8rem;letter-spacing:3px;}
+  .review-text{position:relative;z-index:1;color:#262922;font-size:.96rem;line-height:1.8;flex:1;}
+  .review-foot{position:relative;z-index:1;font-size:.78rem;color:#767c6d;border-top:1px solid rgba(0,0,0,.08);padding-top:12px;}
   .review-stats{display:flex;gap:56px;margin-top:44px;flex-wrap:wrap;justify-content:center;}
   .review-stat{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;}
   .review-stat svg{width:28px;height:28px;color:var(--accent);}
@@ -633,72 +644,84 @@
         <div class="review-card">
           <span class="review-mark">“</span>
           <span class="review-tag">재방문 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">두번째 재방문입니다. 인기가 많은 곳이라 힘들게 예약해서 갔는데 역시 또 후회가 없습니다. 진짜 여기 한번 받으시면 다른 데 절대 못 갑니다! 원장님 너무 친절하시고 강력추천 입니다 ㅋㅋ</p>
           <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
         </div>
         <div class="review-card">
           <span class="review-mark">“</span>
           <span class="review-tag">재방문 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">저번 방문 때 알려주신 관리법대로 관리하고 재주기 맞춰 방문해서인지 오늘은 통증이 확실히 덜했습니다. 항상 친절하고 최선을 다해주셔서 믿고 갑니다. 공간 디퓨저 향도 좋고 분위기가 편안해요.</p>
           <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
         </div>
         <div class="review-card">
           <span class="review-mark">“</span>
           <span class="review-tag">브라질리언 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">브라질리언 왁싱은 처음이라 긴장됐고 컨디션도 안 좋았던 날이라 걱정했는데, 무색하게 너무 친절하고 꼼꼼하게 관리해주셨습니다. 진정관리까지 챙겨주시는 걸 보면 가성비도 정말 좋아요.</p>
           <div class="review-foot">브라질리언 왁싱 · 네이버 예약 고객</div>
         </div>
         <div class="review-card">
           <span class="review-mark">“</span>
           <span class="review-tag">벨리테라피 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">테라피 중간중간 배 라인이 가볍고 부드러워지는 느낌이 들었어요. 끝나고 나니 훨씬 편안하고 라인도 정돈된 기분입니다. 프라이빗하게 예약되어 있어 주변 신경 안 쓰여서 좋았어요. 재방문의사 100%입니다!</p>
           <div class="review-foot">벨리테라피 · 네이버 예약 고객</div>
         </div>
         <div class="review-card">
           <span class="review-mark">“</span>
           <span class="review-tag">첫 방문 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">다니던 왁싱샵 말고 다른 곳을 찾다가 리뷰가 좋아서 예약하고 찾아왔습니다. 정말 안 아프게 잘해주시고, 왁싱 후 관리법까지 하나부터 열까지 자세히 알려주셨어요. 다음에도 여기만 갈 것 같습니다.</p>
           <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
         </div>
         <div class="review-card">
           <span class="review-mark">“</span>
           <span class="review-tag">단골 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">왁싱 자체를 이제 너무 편하게 받을 수 있게 잘해주세요. 사후관리가 너무 깔끔해서 항상 만족합니다. 다음에 또 방문할게요!</p>
           <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
         </div>
         <div class="review-card" aria-hidden="true">
           <span class="review-mark">“</span>
           <span class="review-tag">재방문 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">두번째 재방문입니다. 인기가 많은 곳이라 힘들게 예약해서 갔는데 역시 또 후회가 없습니다. 진짜 여기 한번 받으시면 다른 데 절대 못 갑니다! 원장님 너무 친절하시고 강력추천 입니다 ㅋㅋ</p>
           <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
         </div>
         <div class="review-card" aria-hidden="true">
           <span class="review-mark">“</span>
           <span class="review-tag">재방문 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">저번 방문 때 알려주신 관리법대로 관리하고 재주기 맞춰 방문해서인지 오늘은 통증이 확실히 덜했습니다. 항상 친절하고 최선을 다해주셔서 믿고 갑니다. 공간 디퓨저 향도 좋고 분위기가 편안해요.</p>
           <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
         </div>
         <div class="review-card" aria-hidden="true">
           <span class="review-mark">“</span>
           <span class="review-tag">브라질리언 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">브라질리언 왁싱은 처음이라 긴장됐고 컨디션도 안 좋았던 날이라 걱정했는데, 무색하게 너무 친절하고 꼼꼼하게 관리해주셨습니다. 진정관리까지 챙겨주시는 걸 보면 가성비도 정말 좋아요.</p>
           <div class="review-foot">브라질리언 왁싱 · 네이버 예약 고객</div>
         </div>
         <div class="review-card" aria-hidden="true">
           <span class="review-mark">“</span>
           <span class="review-tag">벨리테라피 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">테라피 중간중간 배 라인이 가볍고 부드러워지는 느낌이 들었어요. 끝나고 나니 훨씬 편안하고 라인도 정돈된 기분입니다. 프라이빗하게 예약되어 있어 주변 신경 안 쓰여서 좋았어요. 재방문의사 100%입니다!</p>
           <div class="review-foot">벨리테라피 · 네이버 예약 고객</div>
         </div>
         <div class="review-card" aria-hidden="true">
           <span class="review-mark">“</span>
           <span class="review-tag">첫 방문 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">다니던 왁싱샵 말고 다른 곳을 찾다가 리뷰가 좋아서 예약하고 찾아왔습니다. 정말 안 아프게 잘해주시고, 왁싱 후 관리법까지 하나부터 열까지 자세히 알려주셨어요. 다음에도 여기만 갈 것 같습니다.</p>
           <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
         </div>
         <div class="review-card" aria-hidden="true">
           <span class="review-mark">“</span>
           <span class="review-tag">단골 후기</span>
+          <span class="review-stars" aria-hidden="true">★★★★★</span>
           <p class="review-text">왁싱 자체를 이제 너무 편하게 받을 수 있게 잘해주세요. 사후관리가 너무 깔끔해서 항상 만족합니다. 다음에 또 방문할게요!</p>
           <div class="review-foot">시그니처 아로마 왁싱 &amp; 테라피 · 네이버 예약 고객</div>
         </div>

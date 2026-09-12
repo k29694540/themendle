@@ -311,6 +311,7 @@
   .event-badge-float{position:absolute;top:16px;left:16px;z-index:2;box-shadow:var(--shadow-sm);}
   .event-gallery{
     display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+    touch-action:pan-y;
   }
   .event-gallery::-webkit-scrollbar{display:none;}
   .event-gallery img{flex:none;width:100%;scroll-snap-align:start;display:block;}
@@ -1005,16 +1006,33 @@
   var eventGallery = document.getElementById('eventGallery');
   if (eventGallery) {
     var eventDots = document.querySelectorAll('#eventGalleryDots .event-dot');
+    var eventReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var eventUserInteracting = false;
+
+    function goToEventSlide(i) {
+      var img = eventGallery.children[i];
+      if (img) img.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+    }
     eventDots.forEach(function (dot, i) {
-      dot.addEventListener('click', function () {
-        var img = eventGallery.children[i];
-        if (img) img.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
-      });
+      dot.addEventListener('click', function () { goToEventSlide(i); });
     });
     eventGallery.addEventListener('scroll', function () {
       var index = Math.round(eventGallery.scrollLeft / eventGallery.clientWidth);
       eventDots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === index); });
     });
+
+    if (!eventReduceMotion) {
+      eventGallery.addEventListener('pointerdown', function () { eventUserInteracting = true; });
+      eventGallery.addEventListener('pointerup', function () {
+        setTimeout(function () { eventUserInteracting = false; }, 3500);
+      });
+      setInterval(function () {
+        if (eventUserInteracting || (typeof lightbox !== 'undefined' && lightbox && !lightbox.hidden)) return;
+        var count = eventGallery.children.length;
+        var current = Math.round(eventGallery.scrollLeft / eventGallery.clientWidth);
+        goToEventSlide((current + 1) % count);
+      }, 4500);
+    }
   }
 
   document.querySelectorAll('.menu-group-collapsible .menu-group-head').forEach(function (btn) {

@@ -1058,6 +1058,20 @@
     mapLink.href = "https://map.naver.com/p/search/" + encodeURIComponent(addr);
   }
 
+  (function () {
+    var bookingBase = "https://booking.naver.com/booking/13/bizes/1414621/items/6851065";
+    var bookingLinks = document.querySelectorAll('a[href^="' + bookingBase + '"]');
+    if (bookingLinks.length) {
+      var d = new Date();
+      var mm = String(d.getMonth() + 1).padStart(2, '0');
+      var dd = String(d.getDate()).padStart(2, '0');
+      var today = d.getFullYear() + '-' + mm + '-' + dd;
+      bookingLinks.forEach(function (a) {
+        a.href = bookingBase + '?startDate=' + today;
+      });
+    }
+  })();
+
   var eventGallery = document.getElementById('eventGallery');
   if (eventGallery) {
     var eventDots = document.querySelectorAll('#eventGalleryDots .event-dot');

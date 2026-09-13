@@ -312,6 +312,24 @@
   }
   .event-banner-image{padding:0;}
   .event-badge-float{position:absolute;top:16px;left:16px;z-index:2;box-shadow:var(--shadow-sm);}
+  .event-swipe-hint{
+    position:absolute;top:16px;right:16px;z-index:2;
+    display:flex;align-items:center;gap:5px;
+    background:rgba(9,10,8,.55);backdrop-filter:blur(4px);color:#fff;
+    padding:6px 12px;border-radius:999px;
+    font-size:.7rem;font-weight:600;letter-spacing:.01em;
+    pointer-events:none;transition:opacity .4s ease;
+    animation:event-swipe-nudge 1.8s ease-in-out infinite;
+  }
+  .event-swipe-hint svg{width:14px;height:14px;flex:none;}
+  .event-swipe-hint.is-hidden{opacity:0;}
+  @keyframes event-swipe-nudge{
+    0%,100%{transform:translateX(0);}
+    50%{transform:translateX(4px);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .event-swipe-hint{animation:none;}
+  }
   .event-gallery{
     display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
     touch-action:pan-y;
@@ -786,6 +804,10 @@
     <div class="event-stack">
       <div class="event-banner event-banner-image reveal">
         <span class="event-badge event-badge-float">진행중</span>
+        <div class="event-swipe-hint" id="eventSwipeHint" aria-hidden="true">
+          <span>옆으로 넘겨보세요</span>
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 6l6 6-6 6M4 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
         <div class="event-gallery" id="eventGallery">
           <img src="event-award.jpg" alt="2026 한국소비자산업평가 우수업체 선정 기념 이벤트" class="zoomable">
           <img src="event-award-2.jpg" alt="2026 우수업체 선정 기념 이벤트 - 부위별 할인 가격표" class="zoomable">
@@ -1032,8 +1054,7 @@
   var eventGallery = document.getElementById('eventGallery');
   if (eventGallery) {
     var eventDots = document.querySelectorAll('#eventGalleryDots .event-dot');
-    var eventReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var eventUserInteracting = false;
+    var eventSwipeHint = document.getElementById('eventSwipeHint');
 
     function goToEventSlide(i) {
       var img = eventGallery.children[i];
@@ -1045,20 +1066,8 @@
     eventGallery.addEventListener('scroll', function () {
       var index = Math.round(eventGallery.scrollLeft / eventGallery.clientWidth);
       eventDots.forEach(function (dot, i) { dot.classList.toggle('is-active', i === index); });
+      if (eventSwipeHint) eventSwipeHint.classList.add('is-hidden');
     });
-
-    if (!eventReduceMotion) {
-      eventGallery.addEventListener('pointerdown', function () { eventUserInteracting = true; });
-      eventGallery.addEventListener('pointerup', function () {
-        setTimeout(function () { eventUserInteracting = false; }, 3500);
-      });
-      setInterval(function () {
-        if (eventUserInteracting || (typeof lightbox !== 'undefined' && lightbox && !lightbox.hidden)) return;
-        var count = eventGallery.children.length;
-        var current = Math.round(eventGallery.scrollLeft / eventGallery.clientWidth);
-        goToEventSlide((current + 1) % count);
-      }, 4500);
-    }
   }
 
   document.querySelectorAll('.menu-group-collapsible .menu-group-head').forEach(function (btn) {

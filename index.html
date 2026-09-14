@@ -457,6 +457,19 @@
   }
   .menu-event-note svg{flex:none;width:18px;height:18px;}
   @media (max-width:720px){ .menu-groups{grid-template-columns:1fr;} }
+  @media (max-width:480px){
+    .menu-group-event{padding:18px 16px;}
+    .menu-group-event .menu-group-head h3{font-size:1.02rem;}
+    .menu-group-event .menu-name{font-size:.9rem;}
+    .menu-group-event .menu-price{font-size:.98rem;}
+    .menu-group-event .menu-price-old{font-size:.68rem;}
+    .menu-group-event .menu-discount-tag{font-size:.6rem;padding:1px 5px;}
+    .menu-group-event .menu-name small{font-size:.66rem;padding:2px 7px;}
+    .menu-group-event .menu-event-note{
+      font-size:.74rem;padding:9px 10px;gap:5px;white-space:nowrap;
+    }
+    .menu-group-event .menu-event-note svg{width:14px;height:14px;}
+  }
 
   /* ---------- Care checklist ---------- */
   .care-columns{display:grid;grid-template-columns:1fr 1fr;gap:28px;}

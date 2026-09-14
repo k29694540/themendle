@@ -132,6 +132,9 @@
   .btn-primary:hover{background:var(--accent-strong);transform:translateY(-3px);box-shadow:0 12px 30px rgba(163,203,141,.32),var(--shadow-sm);}
   .btn-outline{border-color:var(--border);color:var(--text);}
   .btn-outline:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-3px);box-shadow:0 10px 24px rgba(163,203,141,.14);}
+  @media (hover:none){
+    #reviewMoreLink{border-color:var(--accent);color:var(--accent);box-shadow:0 0 18px rgba(163,203,141,.45);}
+  }
 
   /* ---------- Motion ---------- */
   .reveal{opacity:0;transform:translateY(28px) scale(.985);transition:opacity .9s var(--ease-premium),transform .9s var(--ease-premium);}

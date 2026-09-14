@@ -407,6 +407,11 @@
   }
   .menu-event-sub:first-of-type{margin-top:2px;}
   .menu-price-discount{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
+  .menu-price-old-row{display:flex;align-items:center;gap:5px;}
+  .menu-discount-tag{
+    font-size:.66rem;font-weight:800;color:#fff;background:#d9534f;
+    padding:1px 6px;border-radius:6px;white-space:nowrap;
+  }
   .menu-price-old{
     font-size:.76rem;font-weight:500;color:var(--text-muted);
     text-decoration:line-through;white-space:nowrap;
@@ -857,23 +862,24 @@
         <ul class="menu-list menu-list-2col">
           <li>
             <span class="menu-name">브라질리언</span>
-            <span class="menu-price-discount"><span class="menu-price-old">85,000원</span><span class="menu-price">65,000원</span></span>
+            <span class="menu-price-discount">
+              <span class="menu-price-old-row"><span class="menu-discount-tag">-24%</span><span class="menu-price-old">85,000원</span></span>
+              <span class="menu-price">65,000원</span>
+            </span>
           </li>
           <li>
-            <span class="menu-name">다리 전체</span>
-            <span class="menu-price-discount"><span class="menu-price-old">100,000원</span><span class="menu-price">75,000원</span></span>
+            <span class="menu-name">브라질리언<small>+ 배렛나루 + 겨드랑이</small></span>
+            <span class="menu-price-discount">
+              <span class="menu-price-old-row"><span class="menu-discount-tag">-35%</span><span class="menu-price-old">115,000원</span></span>
+              <span class="menu-price">75,000원</span>
+            </span>
           </li>
           <li>
-            <span class="menu-name">겨드랑이</span>
-            <span class="menu-price-discount"><span class="menu-price-old">30,000원</span><span class="menu-price">15,000원</span></span>
-          </li>
-          <li>
-            <span class="menu-name">배 전체</span>
-            <span class="menu-price-discount"><span class="menu-price-old">40,000원</span><span class="menu-price">30,000원</span></span>
-          </li>
-          <li>
-            <span class="menu-name">가슴 전체</span>
-            <span class="menu-price-discount"><span class="menu-price-old">40,000원</span><span class="menu-price">30,000원</span></span>
+            <span class="menu-name">브라질리언<small>+ 다리 전체</small></span>
+            <span class="menu-price-discount">
+              <span class="menu-price-old-row"><span class="menu-discount-tag">-24%</span><span class="menu-price-old">185,000원</span></span>
+              <span class="menu-price">140,000원</span>
+            </span>
           </li>
         </ul>
         <p class="menu-event-note">나머지 왁싱 시술 부위 20% 할인</p>
@@ -881,11 +887,17 @@
         <ul class="menu-list menu-list-2col">
           <li>
             <span class="menu-name">복부순환테라피</span>
-            <span class="menu-price-discount"><span class="menu-price-old">75,000원</span><span class="menu-price">45,000원</span></span>
+            <span class="menu-price-discount">
+              <span class="menu-price-old-row"><span class="menu-discount-tag">-33%</span><span class="menu-price-old">75,000원</span></span>
+              <span class="menu-price">50,000원</span>
+            </span>
           </li>
           <li>
             <span class="menu-name">다리순환테라피</span>
-            <span class="menu-price-discount"><span class="menu-price-old">75,000원</span><span class="menu-price">45,000원</span></span>
+            <span class="menu-price-discount">
+              <span class="menu-price-old-row"><span class="menu-discount-tag">-33%</span><span class="menu-price-old">75,000원</span></span>
+              <span class="menu-price">50,000원</span>
+            </span>
           </li>
         </ul>
       </div>

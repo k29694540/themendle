@@ -395,7 +395,11 @@
   }
   .menu-list li:first-child{border-top:none;padding-top:0;}
   .menu-name{color:var(--text);font-weight:700;font-size:1rem;display:flex;flex-direction:column;gap:4px;}
-  .menu-name small{color:var(--accent-strong);font-weight:700;font-size:.86rem;}
+  .menu-name small{
+    display:inline-block;margin-top:4px;width:fit-content;
+    background:var(--surface-2);color:var(--text-body);border:1px solid var(--border);
+    padding:2px 9px;border-radius:6px;font-size:.72rem;font-weight:600;
+  }
   .menu-price{
     font-family:var(--sans);font-weight:800;color:var(--accent-strong);font-size:1.1rem;
     font-variant-numeric:tabular-nums;white-space:nowrap;
@@ -417,9 +421,12 @@
     text-decoration:line-through;white-space:nowrap;
   }
   .menu-event-note{
-    text-align:center;background:var(--accent);color:var(--accent-ink);
-    font-weight:800;font-size:1rem;padding:12px 16px;border-radius:10px;margin:8px 0 6px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    text-align:center;background:var(--bg);color:var(--accent-strong);
+    font-weight:700;font-size:.94rem;padding:11px 16px;border-radius:10px;margin:10px 0 6px;
+    border:1.5px dashed var(--accent);
   }
+  .menu-event-note svg{flex:none;width:18px;height:18px;}
   @media (max-width:720px){ .menu-groups{grid-template-columns:1fr;} }
 
   /* ---------- Care checklist ---------- */
@@ -889,7 +896,7 @@
             </span>
           </li>
         </ul>
-        <p class="menu-event-note">나머지 왁싱 시술 부위 20% 할인</p>
+        <p class="menu-event-note"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 20L20 4M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM16 21a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>나머지 왁싱 시술 부위 20% 할인</p>
         <div class="menu-event-sub">THERAPY</div>
         <ul class="menu-list menu-list-2col">
           <li>

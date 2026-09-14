@@ -159,8 +159,6 @@
   .care-columns .reveal:nth-child(2){transition-delay:.1s;}
   .director-badges .reveal:nth-child(2){transition-delay:.06s;}
   .director-badges .reveal:nth-child(3){transition-delay:.12s;}
-  .review-stats .reveal:nth-child(2){transition-delay:.08s;}
-  .review-stats .reveal:nth-child(3){transition-delay:.16s;}
 
   .notice-card,.event-banner,.care-panel,.badge{
     transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease;
@@ -526,18 +524,7 @@
   .review-stars{position:relative;z-index:1;color:#3f6b3a;font-size:.8rem;letter-spacing:3px;}
   .review-text{position:relative;z-index:1;color:#262922;font-size:.96rem;line-height:1.8;flex:1;}
   .review-foot{position:relative;z-index:1;font-size:.78rem;color:#767c6d;border-top:1px solid rgba(0,0,0,.08);padding-top:12px;}
-  .review-stats{display:flex;gap:56px;margin-top:44px;flex-wrap:wrap;justify-content:center;}
-  .review-stat{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;}
-  .review-stat svg{width:28px;height:28px;color:var(--accent);}
-  .review-stat b{display:block;font-family:var(--display);font-size:2rem;color:var(--accent-strong);}
-  .review-stat span{font-size:.8rem;color:var(--text-muted);}
-  @media (max-width:480px){
-    .review-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
-    .review-stat{gap:6px;}
-    .review-stat svg{width:20px;height:20px;}
-    .review-stat b{font-size:1.4rem;}
-    .review-stat span{font-size:.68rem;line-height:1.3;}
-  }
+  .review-more{margin-top:44px;text-align:center;}
 
   /* ---------- Location ---------- */
   .location{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;}
@@ -833,19 +820,8 @@
         </div>
       </div>
     </div>
-    <div class="review-stats">
-      <div class="review-stat reveal">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.4"/><path d="M15.3 15.3L20 20" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
-        <b>꼼꼼한</b><span>맞춤 시술</span>
-      </div>
-      <div class="review-stat reveal">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3C12 3 6 10.5 6 14.5A6 6 0 0 0 18 14.5C18 10.5 12 3 12 3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
-        <b>호호바</b><span>오일 케어</span>
-      </div>
-      <div class="review-stat reveal">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3l7 3v5c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V6l7-3Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <b>1:1</b><span>프라이빗 예약 케어</span>
-      </div>
+    <div class="review-more">
+      <a class="btn btn-outline" id="reviewMoreLink" href="https://booking.naver.com/booking/13/bizes/1414621/items/6851065?startDate=2026-09-14&tab=review" target="_blank" rel="noopener">네이버 후기 더 보기</a>
     </div>
   </div>
 </section>
@@ -1152,15 +1128,19 @@
 
   (function () {
     var bookingBase = "https://booking.naver.com/booking/13/bizes/1414621/items/6851065";
-    var bookingLinks = document.querySelectorAll('a[href^="' + bookingBase + '"]');
-    if (bookingLinks.length) {
-      var d = new Date();
-      var mm = String(d.getMonth() + 1).padStart(2, '0');
-      var dd = String(d.getDate()).padStart(2, '0');
-      var today = d.getFullYear() + '-' + mm + '-' + dd;
-      bookingLinks.forEach(function (a) {
-        a.href = bookingBase + '?startDate=' + today;
-      });
+    var d = new Date();
+    var mm = String(d.getMonth() + 1).padStart(2, '0');
+    var dd = String(d.getDate()).padStart(2, '0');
+    var today = d.getFullYear() + '-' + mm + '-' + dd;
+
+    var bookingLinks = document.querySelectorAll('a[href^="' + bookingBase + '"]:not(#reviewMoreLink)');
+    bookingLinks.forEach(function (a) {
+      a.href = bookingBase + '?startDate=' + today;
+    });
+
+    var reviewMoreLink = document.getElementById('reviewMoreLink');
+    if (reviewMoreLink) {
+      reviewMoreLink.href = bookingBase + '?startDate=' + today + '&tab=review';
     }
   })();
 

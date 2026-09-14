@@ -91,6 +91,35 @@
   .nav-cta:hover{background:var(--accent-strong);}
   @media (max-width:720px){ .nav-links{display:none;} }
 
+  .nav-menu-btn{
+    display:none;flex:none;background:none;border:none;color:var(--text);
+    padding:6px;margin:-6px 0 -6px -4px;cursor:pointer;
+    align-items:center;justify-content:center;
+  }
+  .nav-menu-btn svg{width:23px;height:23px;}
+  .nav-menu-btn .icon-close{display:none;}
+  .nav-menu-btn.is-open .icon-menu{display:none;}
+  .nav-menu-btn.is-open .icon-close{display:block;}
+  @media (max-width:720px){ .nav-menu-btn{display:flex;order:-1;} }
+
+  .nav-mobile-panel{
+    display:none;flex-direction:column;
+    position:fixed;top:57px;left:0;right:0;z-index:99;
+    background:rgba(15,17,14,.98);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+    padding:6px clamp(20px,5vw,56px) 18px;
+    max-height:calc(100vh - 57px);overflow-y:auto;
+  }
+  .nav-mobile-panel.is-open{display:flex;}
+  .nav-mobile-deco{position:absolute;top:4px;right:12px;width:76px;height:76px;color:var(--accent);opacity:.16;pointer-events:none;}
+  .nav-mobile-link{
+    position:relative;z-index:1;
+    padding:15px 2px;font-size:1rem;font-weight:600;color:var(--text-body);
+    border-bottom:1px solid var(--border-soft);
+  }
+  .nav-mobile-link:last-child{border-bottom:none;}
+  .nav-mobile-link:active{color:var(--accent-strong);}
+
   /* ---------- Buttons ---------- */
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
@@ -581,7 +610,28 @@
       <a href="#care">주의사항</a>
       <a href="#location">오시는길</a>
     </div>
+    <button type="button" class="nav-menu-btn" id="navMenuBtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navMobilePanel">
+      <svg class="icon-menu" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <svg class="icon-close" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
     <a class="nav-cta" href="https://booking.naver.com/booking/13/bizes/1414621/items/6851065" target="_blank" rel="noopener">예약하기</a>
+  </div>
+  <div class="nav-mobile-panel" id="navMobilePanel">
+    <svg class="nav-mobile-deco" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <g transform="translate(165,150) rotate(-10)">
+        <path d="M0 70Q18 42 10 6" stroke="currentColor" stroke-width="1.6"/>
+        <ellipse cx="8" cy="50" rx="5" ry="11" transform="rotate(-30 8 50)" stroke="currentColor" stroke-width="1.2"/>
+        <ellipse cx="15" cy="34" rx="4.5" ry="9.5" transform="rotate(24 15 34)" stroke="currentColor" stroke-width="1.2"/>
+        <ellipse cx="5" cy="20" rx="4" ry="8.5" transform="rotate(-16 5 20)" stroke="currentColor" stroke-width="1.2"/>
+      </g>
+    </svg>
+    <a href="#director" class="nav-mobile-link">원장소개</a>
+    <a href="#reviews" class="nav-mobile-link">후기</a>
+    <a href="#notice" class="nav-mobile-link">공지사항</a>
+    <a href="#event" class="nav-mobile-link">이벤트</a>
+    <a href="#services" class="nav-mobile-link">시술·금액</a>
+    <a href="#care" class="nav-mobile-link">주의사항</a>
+    <a href="#location" class="nav-mobile-link">오시는길</a>
   </div>
 </nav>
 
@@ -1100,6 +1150,24 @@
       });
     }
   })();
+
+  var navMenuBtn = document.getElementById('navMenuBtn');
+  var navMobilePanel = document.getElementById('navMobilePanel');
+  if (navMenuBtn && navMobilePanel) {
+    function closeNavMenu() {
+      navMenuBtn.classList.remove('is-open');
+      navMobilePanel.classList.remove('is-open');
+      navMenuBtn.setAttribute('aria-expanded', 'false');
+    }
+    navMenuBtn.addEventListener('click', function () {
+      var isOpen = navMobilePanel.classList.toggle('is-open');
+      navMenuBtn.classList.toggle('is-open', isOpen);
+      navMenuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+    navMobilePanel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', closeNavMenu);
+    });
+  }
 
   var eventGallery = document.getElementById('eventGallery');
   if (eventGallery) {
